@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Button
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -43,12 +44,11 @@ fun Topbar() {
                 colorFilter = ColorFilter.tint(Color.White),
                 modifier = Modifier.size(28.dp)
             )
-
-            Image(
-                painter = painterResource(id = R.drawable.qr_logo),
-                contentDescription = null,
-                modifier = Modifier.size(60.dp)
-            )
+                Image(
+                    painter = painterResource(id = R.drawable.qr_logo),
+                    contentDescription = null,
+                    modifier = Modifier.size(60.dp),
+                )
         }
     }
 }

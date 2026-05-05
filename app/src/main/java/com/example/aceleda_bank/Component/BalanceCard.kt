@@ -38,31 +38,34 @@ fun Balancecard() {
             .padding(16.dp)
             .border(
                 width = 1.dp,
-                color = Color.Yellow.copy(alpha = 0.5f),
+                color = Color(0xFFD4A44D).copy(alpha = 0.8f),
                 shape = RoundedCornerShape(16.dp),
             )
             .background(
                 color = Color.Black.copy(alpha = 0.9f),
                 shape = RoundedCornerShape(16.dp)
-            )
-            .padding(16.dp)
+            ),
+        contentAlignment = Alignment.Center
     ) {
         Row(verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.size(120.dp)
+                modifier = Modifier
+                    .padding(start=16.dp)
+                    .size(120.dp)
             ) {
 
-                Canvas(modifier = Modifier.fillMaxSize()) {
+                Canvas(modifier = Modifier
+                    .size(110.dp)) {
 
                     drawArc(
                         color = Color(0xFFD4A62A),
                         startAngle = 0f,
                         sweepAngle = 360f,
                         useCenter = false,
-                        style = Stroke(width = 12f)
+                        style = Stroke(width = 18f)
                     )
 
                     drawArc(
@@ -70,7 +73,7 @@ fun Balancecard() {
                         startAngle = 240f,
                         sweepAngle=9f,
                         useCenter = false,
-                        style = Stroke(width = 14f)
+                        style = Stroke(width = 18f)
                     )
 
                     drawArc(
@@ -78,7 +81,7 @@ fun Balancecard() {
                         startAngle = 265f,
                         sweepAngle=4f,
                         useCenter = false,
-                        style = Stroke(width = 14f)
+                        style = Stroke(width = 18f)
                     )
 
                     drawArc(
@@ -86,7 +89,7 @@ fun Balancecard() {
                         startAngle = 245f,
                         sweepAngle = 20f,
                         useCenter = false,
-                        style = Stroke(width = 12f)
+                        style = Stroke(width = 18f)
                     )
                 }
 
@@ -111,6 +114,7 @@ fun Balancecard() {
             }
                 Column(
                     modifier = Modifier
+                        .padding(end = 16.dp)
                         .fillMaxWidth(),
                     horizontalAlignment = Alignment.End
                 ) {
