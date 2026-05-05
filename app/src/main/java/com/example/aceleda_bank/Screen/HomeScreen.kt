@@ -11,6 +11,8 @@ import com.example.aceleda_bank.Component.Backgroundimage
 import com.example.aceleda_bank.Component.Balancecard
 import com.example.aceleda_bank.Component.Profile
 import com.example.aceleda_bank.Component.Topbar
+import com.example.aceleda_bank.Component.Topquickaction
+
 @Preview(showBackground = true)
 @Composable
 fun HomeScreen() {
@@ -22,6 +24,7 @@ fun HomeScreen() {
             Topbar()
             Profile()
             Balancecard()
+            Topquickaction()
         }
     }
 }
