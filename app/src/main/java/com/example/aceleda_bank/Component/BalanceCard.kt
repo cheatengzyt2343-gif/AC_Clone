@@ -136,6 +136,7 @@ fun Balancecard() {
                                     shape = CircleShape
                                 )
                         ) {
+
                             Image(
                                 painter = painterResource(id = R.drawable.eyes),
                                 contentDescription = null,
