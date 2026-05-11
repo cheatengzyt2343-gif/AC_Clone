@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.aceleda_bank.Component.AutoSlidingBanner
 import com.example.aceleda_bank.Component.Backgroundimage
 import com.example.aceleda_bank.Component.Balancecard
 import com.example.aceleda_bank.Component.Bodyquickaction1
@@ -24,18 +25,26 @@ import com.example.aceleda_bank.Component.Topquickaction
 fun HomeScreen() {
     Box(modifier = Modifier.fillMaxSize()) {
         Backgroundimage()
-        LazyColumn(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 20.dp)
         ) {
-            item { Topbar() }
-            item { Profile() }
-            item { Balancecard() }
-            item { Topquickaction() }
-            item { Bodyquickaction1() }
-            item { Bodyquickaction2() }
-            item { FullBottomQuickAction() }
+
+            Topbar()
+
+            LazyColumn(
+                modifier = Modifier.weight(1f)
+            ) {
+
+                item { Profile() }
+                item { Balancecard() }
+                item { Topquickaction() }
+                item { Bodyquickaction1() }
+                item { Bodyquickaction2() }
+                item { FullBottomQuickAction() }
+                item { AutoSlidingBanner() }
+            }
         }
     }
 }

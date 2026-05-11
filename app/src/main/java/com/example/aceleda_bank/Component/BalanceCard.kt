@@ -104,7 +104,6 @@ fun Balancecard() {
                         modifier = Modifier.size(48.dp)
                     )
 
-                    Spacer(modifier = Modifier.height(5.dp))
 
                     Text(
                         text = "Accounts",
