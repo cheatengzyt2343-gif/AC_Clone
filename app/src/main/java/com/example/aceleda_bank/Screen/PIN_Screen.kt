@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -141,7 +142,7 @@ fun PinEntryScreen(
                                 color = when {
                                     isError -> Color.Red
                                     filled  -> GoldPrimary
-                                    else    -> WhiteAlpha60
+                                    else    -> White
                                 },
                                 shape = CircleShape
                             )
@@ -154,31 +155,35 @@ fun PinEntryScreen(
                     pin += number.toString()
                 }
             })
-           // Spacer(Modifier.height(50.dp))
+            Spacer(Modifier.height(50.dp))
             Row(
-                horizontalArrangement = Arrangement.spacedBy(10.dp),
+                horizontalArrangement = Arrangement.spacedBy(160.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = "Forgot PIN?",
-                    color = WhiteAlpha60,
-                    fontSize = 15.sp
+                    color = White,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Bold
                 )
                     if (pin.isNotEmpty()) {
                         Text(
                             text = "Delete",
-                            color = WhiteAlpha60,
+                            color = White,
                             fontSize = 15.sp,
-                            modifier = Modifier.clickable {
+                            modifier = Modifier
+                                .clickable {
                                 if (pin.isNotEmpty()) {
                                     pin = pin.dropLast(1)
                                 }
-                            }
+                            } ,
+                                    fontWeight = FontWeight.Bold
                         )
                     }else{
                         Text(
+                            fontWeight = FontWeight.Bold,
                             text = "Cancel",
-                            color = WhiteAlpha60,
+                            color = White,
                             fontSize = 15.sp
                         )
                     }
@@ -196,8 +201,8 @@ fun KeyButton(number: Int,onClick: ()->Unit ) {
             .clip(CircleShape)
             .background(PinEmpty)
             .border(
-                width = 1.5.dp,
-                color = WhiteAlpha60,
+                width = 2.dp,
+                color = White,
                 shape = CircleShape
             )
             .clickable{onClick()},
@@ -206,7 +211,7 @@ fun KeyButton(number: Int,onClick: ()->Unit ) {
         Text(
             text = "$number",
             fontSize = 32.sp,
-            color = WhiteAlpha60,
+            color = White,
         )
     }
 }
