@@ -250,13 +250,14 @@ fun PinEntryScreenPreview(navController: NavController) {
         userName = "CHEA TENG",
         phoneNumber = "067676767",
         correctPin = "123456",
-        onSuccess = { navController.navigate("home") },
+        onSuccess = { navController.navigate("balance") },
         onError = { Toast.makeText(context, "no", Toast.LENGTH_SHORT).show() }
     )
 }
+
 @Preview(showBackground = true, backgroundColor = 0xFF1A1310)
 @Composable
-fun PinEntryScreenPreviewOnly() {   // 👈 no NavController param
+fun PinEntryScreenPreviewOnly() {
     PinEntryScreen(
         userName = "CHEA TENG",
         phoneNumber = "067676767",

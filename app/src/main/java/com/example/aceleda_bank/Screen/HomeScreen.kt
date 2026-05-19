@@ -17,8 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.aceleda_bank.Component.AutoSlidingBanner
 import com.example.aceleda_bank.Component.AutoSlidingBanner1
 import com.example.aceleda_bank.Component.Backgroundimage
@@ -32,9 +32,8 @@ import com.example.aceleda_bank.Component.RecentTransaction
 import com.example.aceleda_bank.Component.Topbar
 import com.example.aceleda_bank.Component.Topquickaction
 
-@Preview(showBackground = true)
 @Composable
-fun HomeScreen() {
+fun HomeScreen(navController: NavController) {
     val listState = rememberLazyListState()
 
     var previousIndex by remember { mutableIntStateOf(0) }
@@ -80,7 +79,7 @@ fun HomeScreen() {
             ) {
 
                 item { Profile() }
-                item { Balancecard() }
+                item { Balancecard(navController) }
                 item { Topquickaction() }
                 item { Bodyquickaction1() }
                 item { Bodyquickaction2() }
