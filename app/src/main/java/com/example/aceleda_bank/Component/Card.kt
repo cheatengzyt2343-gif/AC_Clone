@@ -1,8 +1,10 @@
 package com.example.aceleda_bank.Component
 import android.R.attr.clickable
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
@@ -29,6 +32,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.aceleda_bank.Navigation.Routes
 import com.example.aceleda_bank.R
 
 //Top Quick Action
@@ -123,7 +128,7 @@ fun QuickActionCard6(image: Painter,title:String,modifier: Modifier = Modifier){
 }
 //Make it Row
 @Composable
-fun Bodyquickaction1(){
+fun Bodyquickaction1(navController: NavController){
     Row(modifier = Modifier
         .padding(start=10.dp,end=10.dp)
         .fillMaxWidth(),
@@ -131,8 +136,12 @@ fun Bodyquickaction1(){
         verticalAlignment = Alignment.CenterVertically
     ){
         QuickActionCard6(image = painterResource(id = R.drawable.card), title = "Card",modifier = Modifier.weight(1f))
-        QuickActionCard6(image = painterResource(id = R.drawable.scanner), title = "Scan",modifier = Modifier.weight(1f))
-        QuickActionCard6(image = painterResource(id = R.drawable.transfer), title = "Transfer",modifier = Modifier.weight(1f))
+        QuickActionCard6(image = painterResource(id = R.drawable.scanner), title = "Scan",modifier = Modifier
+            .clickable{navController.navigate(Routes.PIN_SCAN)}
+            .weight(1f))
+        QuickActionCard6(image = painterResource(id = R.drawable.transfer), title = "Transfer",modifier = Modifier
+            .clickable{navController.navigate(Routes.PIN_TRANSFER)}
+            .weight(1f))
     }
 }
 @Composable
@@ -189,7 +198,7 @@ fun BttomQAE(image: Painter, title: String){
     }
 }
 //Bottom Quick Action with its background
-@Preview(showBackground=true)
+
 @Composable
 fun FullBottomQuickAction() {
     val actions = listOf(
@@ -230,6 +239,8 @@ data class QickActionBottom(
     val image: Int,
     val title: String
 )
+
+
 
 
 

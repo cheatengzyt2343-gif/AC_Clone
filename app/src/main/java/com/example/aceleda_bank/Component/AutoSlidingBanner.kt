@@ -1,4 +1,5 @@
 package com.example.aceleda_bank.Component
+
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,18 +45,20 @@ fun AutoSlidingBanner() {
         )
     }
 
+    // Set a large initial page so user can also scroll backwards initially
+    val initialPage = 1000
     val pagerState = rememberPagerState(
-        initialPage = 1000,
+        initialPage = initialPage,
         pageCount = { Int.MAX_VALUE }
     )
 
-    // Improved Auto slide logic for infinite circular scrolling
+    // Circular Auto slide logic
     LaunchedEffect(Unit) {
         while (true) {
             yield()
             delay(3000)
             if (!pagerState.isScrollInProgress && banners.isNotEmpty()) {
-                // To keep moving forward infinitely, we just increment the current page
+                // Just increment the page index to keep moving forward infinitely
                 val nextPage = pagerState.currentPage + 1
                 pagerState.animateScrollToPage(nextPage)
             }
@@ -94,9 +97,7 @@ fun AutoSlidingBanner() {
         HorizontalPager(
             state = pagerState,
             contentPadding = PaddingValues(horizontal = 60.dp),
-            modifier = Modifier
-                .fillMaxWidth(),
-
+            modifier = Modifier.fillMaxWidth(),
         ) { page ->
             val actualPage = page % banners.size
             val pageOffset = (
@@ -177,11 +178,9 @@ fun AutoSlidingBanner() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-
             repeat(banners.size) { index ->
-
-                val selected =
-                    (pagerState.currentPage % banners.size) == index
+                // Use modulo to find the active indicator in an infinite list
+                val selected = (pagerState.currentPage % banners.size) == index
 
                 Box(
                     modifier = Modifier

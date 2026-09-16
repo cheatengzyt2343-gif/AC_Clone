@@ -18,13 +18,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.aceleda_bank.DTO.AuthDTO.PinRequestDTO
+import com.example.aceleda_bank.Navigation.Routes
 import com.example.aceleda_bank.R
+import com.example.aceleda_bank.ViewModel.AuthViewModel
 import kotlinx.coroutines.delay
 
 private val BackgroundDark   = Color(0xFF1A1310)
@@ -40,29 +42,37 @@ private val PinFilled        = Color.White
 private val PinEmpty         = Color(0x00000000)
 
 private const val PIN_LENGTH = 6
-var passcode = "123456"
 @Composable
 fun PinEntryScreen(
-    userName: String = "",
-    phoneNumber: String = "",
-    correctPin: String = "123456",
+    viewModel: AuthViewModel =hiltViewModel(),
+    navController: NavController,
     onSuccess: () -> Unit = {},
     onError: () -> Unit = {}
 ) {
     var pin by remember { mutableStateOf("") }
     var isError by remember { mutableStateOf(false) }
+
     LaunchedEffect(pin) {
         if (pin.length == PIN_LENGTH) {
-            if (pin == correctPin) {
-                onSuccess()
-            } else {
-                isError = true
-                delay(500)       // short shake delay
-                pin = ""         // reset
-                isError = false
+            viewModel.verifyPin(PinRequestDTO(pin)) { isSuccess ->
+                if (isSuccess) {
+                    onSuccess()
+                } else {
+                    isError = true
+                    onError()
+                }
             }
         }
     }
+
+    LaunchedEffect(isError) {
+        if (isError) {
+            delay(500)
+            pin = ""
+            isError = false
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.img),
@@ -91,7 +101,9 @@ fun PinEntryScreen(
                     color = White,
                     fontSize = 32.sp,
                     modifier = Modifier
-                        .clickable() {  }
+                        .clickable() {
+                            navController.navigate(Routes.HOME)
+                        }
                 )
             }
             Spacer(Modifier.height(24.dp))
@@ -241,28 +253,4 @@ fun PinPad(onKeyPress: (Int) -> Unit) {
         NumberKey(numbers = listOf(7, 8, 9), onKeyPress = onKeyPress)
         NumberKey(numbers = listOf(0),       onKeyPress = onKeyPress)
     }
-}
-
-@Composable
-fun PinEntryScreenPreview(navController: NavController) {
-    val context = LocalContext.current
-    PinEntryScreen(
-        userName = "CHEA TENG",
-        phoneNumber = "067676767",
-        correctPin = "123456",
-        onSuccess = { navController.navigate("balance") },
-        onError = { Toast.makeText(context, "no", Toast.LENGTH_SHORT).show() }
-    )
-}
-
-@Preview(showBackground = true, backgroundColor = 0xFF1A1310)
-@Composable
-fun PinEntryScreenPreviewOnly() {
-    PinEntryScreen(
-        userName = "CHEA TENG",
-        phoneNumber = "067676767",
-        correctPin = "123456",
-        onSuccess = {},
-        onError = {}
-    )
 }

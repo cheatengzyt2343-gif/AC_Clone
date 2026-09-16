@@ -108,23 +108,23 @@ fun RecentTransaction() {
                 PreviousAcc(
                     color = action.color,
                     name = action.name,
-                    title = action.title
+                    title = action.title,
+                    modifier = Modifier
                 )
             }
         }
     }
 }
 @Composable
-fun PreviousAcc(color: Color ,name: String, title: String){
+fun PreviousAcc(color: Color ,name: String, title: String,modifier: Modifier){
     Column(
         modifier=Modifier
             .padding(start=6.dp,end=6.dp,top=16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(modifier = Modifier
-            .width(60.dp)
-            .height(60.dp)
+        Box(modifier = modifier
+            .size(60.dp)
             .background(
                 color = color,
                 shape = RoundedCornerShape(40.dp)

@@ -23,17 +23,29 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.aceleda_bank.Navigation.Routes
 import com.example.aceleda_bank.R
+import com.example.aceleda_bank.Room.AccountEntity
+import com.example.aceleda_bank.ViewModel.AccountViewModel
 
 @Composable
-fun Balancecard(navController: NavController) {
+fun Balancecard(navController: NavController,accountViewModel: AccountViewModel = hiltViewModel()) {
+    //all account info
+    val accounts by accountViewModel.allAccounts.collectAsState()
     Box(
         modifier = Modifier
             .clickable {
-                navController.navigate("pin")
+                navController.navigate(Routes.PIN_BALANCE)
             }
             .fillMaxWidth()
             .size(180.dp)
@@ -120,7 +132,7 @@ fun Balancecard(navController: NavController) {
                     horizontalAlignment = Alignment.End
                 ) {
                     Row(
-                        modifier = Modifier.padding(bottom = 15.dp),
+                        modifier = Modifier.padding(top = 15.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
@@ -128,7 +140,7 @@ fun Balancecard(navController: NavController) {
                             color = Color.White,
                             modifier = Modifier
                         )
-                        Spacer(modifier = Modifier.size(10.dp))
+                        Spacer(modifier = Modifier.size(6.dp))
                         Box(
                             modifier = Modifier
                                 .size(30.dp)
@@ -147,37 +159,31 @@ fun Balancecard(navController: NavController) {
                             )
                         }
                     }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier.padding(bottom = 15.dp),
-                    ) {
-                        Text(
-                            text = "100,000",
-                            color = Color.White,
-                        )
-                        Spacer(modifier = Modifier.size(10.dp))
-                        Image(
-                            painter = painterResource(id = R.drawable.riel),
-                            contentDescription = null,
-                            modifier = Modifier.size(18.dp)
-                        )
-                    }
-                    Row(
-                        modifier = Modifier
-                            .padding(bottom = 15.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "1000",
-                            color = Color.White,
-                            modifier = Modifier
-                        )
-                        Spacer(modifier = Modifier.size(10.dp))
-                        Image(
-                            contentDescription = null,
-                            painter = painterResource(id = R.drawable.dollar),
-                            modifier = Modifier.size(18.dp)
-                        )
+
+                    accounts.forEach { account->
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier.padding(bottom = 10.dp),
+                        ) {
+                            Text(
+                                text = "${account?.balance}",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.size(10.dp))
+                            val icon = if (account.currency == "USD") {
+                                R.drawable.dollar_mini
+                            } else {
+                                R.drawable.cambodia_riel_crop
+                            }
+
+                            Image(
+                                painter = painterResource(id = icon),
+                                contentDescription = null,
+                                modifier = Modifier.size(40.dp),
+                                colorFilter = ColorFilter.tint(Color.White)
+                            )
+                        }
                     }
                 }
             }
