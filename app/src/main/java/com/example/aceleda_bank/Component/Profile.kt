@@ -1,6 +1,7 @@
 package com.example.aceleda_bank.Component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -17,11 +18,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.aceleda_bank.Navigation.Routes
 import com.example.aceleda_bank.R
+import com.example.aceleda_bank.Room.UserEntity
 
 @Composable
-fun Profile(){
-    Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+fun Profile(user: UserEntity?,navController: NavController){
+    Row(modifier = Modifier
+        .clickable{
+            navController.navigate(Routes.Account)
+        }
+        .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically) {
         Image(
             painter = painterResource(id=R.drawable.profile),
@@ -31,7 +39,7 @@ fun Profile(){
         Column() {
             Text(modifier=Modifier
                 .padding(start=6.dp),
-                text = "Hello, Teng",
+                text = "Hello, ${user?.firstName ?: "User"}",
                 color=Color.White,
                 fontWeight = FontWeight.Bold,
             )
